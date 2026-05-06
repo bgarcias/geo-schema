@@ -7,82 +7,47 @@
 function geo_schema_inyectar($data)
 {
     $schemas = [];
-    $p = $data['producto'] ?? [];
-    $o = $data['organizacion'] ?? [];
-    $faqs = $data['faqs'] ?? [];
-    $meta = $data['meta'] ?? [];
+    $o    = $data['organizacion'] ?? [];
+    $faqs = $data['faqs']         ?? [];
+    $meta = $data['meta']         ?? [];
 
-    // 1. Producto principal
-    if (!empty($p['nombre'])) {
-        $s = [
-            '@context' => 'https://schema.org',
-            '@type' => $p['tipo'] ?? 'Product',
-            'name' => $p['nombre'],
-            'description' => $p['descripcion'] ?? '',
-            'url' => $o['url'] ?? get_home_url(),
-        ];
-
-        if (!empty($p['marca']))
-            $s['brand'] = ['@type' => 'Brand', 'name' => $p['marca']];
-
-        if (!empty($p['fabricante']))
-            $s['manufacturer'] = ['@type' => 'Organization', 'name' => $p['fabricante']];
-
-        if (!empty($p['ingrediente']))
-            $s['activeIngredient'] = $p['ingrediente'];
-
-        if (!empty($p['via']))
-            $s['administrationRoute'] = $p['via'];
-
-        if (!empty($p['indicacion']))
-            $s['indication'] = ['@type' => 'MedicalIndication', 'name' => $p['indicacion']];
-
-        if (!empty($p['advertencia']))
-            $s['warning'] = $p['advertencia'];
-
-        if (!empty($p['contraindicacion']))
-            $s['contraindication'] = $p['contraindicacion'];
-
-        $schemas[] = $s;
-    }
-
-    // 2. Organización
+    // 1. Organización
     if (!empty($o['nombre'])) {
         $schemas[] = [
             '@context' => 'https://schema.org',
-            '@type' => 'Organization',
-            'name' => $o['nombre'],
-            'url' => $o['url'] ?? '',
-            'address' => [
-                '@type' => 'PostalAddress',
-                'addressCountry' => 'PE',
+            '@type'    => 'Organization',
+            'name'     => $o['nombre'],
+            'url'      => $o['url'] ?? '',
+            'address'  => [
+                '@type'           => 'PostalAddress',
+                'addressCountry'  => 'PE',
                 'addressLocality' => $o['ciudad'] ?? 'Lima',
             ],
         ];
     }
 
-    // 3. FAQPage
+    // 2. FAQPage
     if (!empty($faqs)) {
         $schemas[] = [
-            '@context' => 'https://schema.org',
-            '@type' => 'FAQPage',
+            '@context'   => 'https://schema.org',
+            '@type'      => 'FAQPage',
             'mainEntity' => array_map(fn($f) => [
-                '@type' => 'Question',
-                'name' => $f['q'],
+                '@type'          => 'Question',
+                'name'           => $f['q'],
                 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f['a']],
             ], $faqs),
         ];
     }
 
-    // 4. MedicalWebPage
+    // 3. MedicalWebPage
     if (!empty($meta['condicion'])) {
         $schemas[] = [
-            '@context' => 'https://schema.org',
-            '@type' => 'MedicalWebPage',
-            'about' => ['@type' => 'MedicalCondition', 'name' => $meta['condicion']],
-            'audience' => 'https://schema.org/Patient',
+            '@context'     => 'https://schema.org',
+            '@type'        => 'MedicalWebPage',
+            'about'        => ['@type' => 'MedicalCondition', 'name' => $meta['condicion']],
+            'audience'     => 'https://schema.org/Patient',
             'lastReviewed' => $meta['fecha_revision'] ?? date('Y-m-d'),
-            'inLanguage' => 'es-PE',
+            'inLanguage'   => 'es-PE',
         ];
     }
 
