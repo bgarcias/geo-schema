@@ -23,30 +23,17 @@ template-parts/, partials/, header.php, footer.php, functions.php,
 y archivos CSS para detectar contenido de secciones.
 
 Extrae:
-- Nombre del producto
-- Descripción / para qué sirve
-- Ingredientes o componentes activos
-- Indicaciones y condición que trata
+- Nombre del producto y para qué sirve
+- Condición médica que trata
 - Advertencias y contraindicaciones
 - Marca, fabricante, URL del sitio
 
 ---
 
-### PASO 2 — Determinar tipo de schema
-
-| Contenido que encuentres                                      | Tipo                |
-|---------------------------------------------------------------|---------------------|
-| vitaminas, minerales, extractos, plantas, natural, suplemento | DietarySupplement   |
-| síntomas, tratamiento, dosis, indicaciones médicas            | Drug                |
-| dental, cosmético, uso externo, crema, gel                    | Product             |
-| Duda → usar como fallback                                     | DietarySupplement   |
-
----
-
-### PASO 3 — OBLIGATORIO: Mostrar reporte y esperar confirmación
+### PASO 2 — OBLIGATORIO: Mostrar reporte y esperar confirmación
 
 **STOP. Antes de escribir cualquier archivo, muestra este reporte y espera respuesta.**
-No importa si tienes información suficiente o no — este paso es siempre obligatorio.
+Este paso es siempre obligatorio, sin excepción.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📋 REPORTE PREVIO — geo-schema
@@ -72,9 +59,9 @@ No importa si tienes información suficiente o no — este paso es siempre oblig
 
 ---
 
-### PASO 4 — Generar FAQs
+### PASO 3 — Generar FAQs
 
-Mínimo 5 preguntas. Basadas en el contenido real de la página.
+Mínimo 5 preguntas basadas en el contenido real de la página.
 Si hay huecos, complétalos con conocimiento general e indícalo.
 
 Tipos de preguntas que funcionan para GEO:
@@ -84,12 +71,11 @@ Tipos de preguntas que funcionan para GEO:
 - ¿Dónde comprar [producto] en Perú?
 - ¿Es natural / sin receta / apto para embarazadas?
 
-Si la página tiene advertencias (ej: no apto para menores de 12 años),
-conviértelas también en FAQ — eso es información útil para la IA.
+Si la página tiene advertencias, conviértelas también en FAQ.
 
 ---
 
-### PASO 5 — Escribir los archivos
+### PASO 4 — Escribir los archivos
 
 ARCHIVO 1:
 Copia .claude/skills/geo-schema/schema-engine.php → inc/schema-engine.php
@@ -97,7 +83,7 @@ Si ya existe inc/schema-engine.php, no lo sobreescribas.
 
 ARCHIVO 2:
 Crea inc/schema-data.php con los datos extraídos y las FAQs generadas.
-Usa la estructura que está al final de este SKILL.md como plantilla.
+Usa la plantilla al final de este SKILL.md.
 
 ARCHIVO 3:
 En functions.php agrega al final si no está ya:
@@ -107,7 +93,7 @@ require_once get_template_directory() . '/inc/schema-engine.php';
 
 ---
 
-### PASO 6 — Reporte final
+### PASO 5 — Reporte final
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✅ geo-schema completado
@@ -117,7 +103,6 @@ Archivos generados:
   → inc/schema-data.php
   → functions.php actualizado
 
-Tipo aplicado: [tipo]
 FAQs generadas: [número]
 
 Valida antes del deploy:
@@ -131,12 +116,12 @@ Solicita indexación después del deploy:
 
 ## Restricciones
 
-- No agregar campo `offers` — las páginas son landings, no e-commerce
-- No agregar `review` ni `aggregateRating` — no se inventan valoraciones
-- No modifica HTML ni CSS
-- No inventa ingredientes ni efectos no documentados
-- No sobreescribe schema-engine.php si ya existe
-- Solo toca inc/ y functions.php
+- No agregar `offers`, `review` ni `aggregateRating`
+- No usar tipos Drug, DietarySupplement ni Product — generan errores en Google
+- No modificar HTML ni CSS
+- No inventar ingredientes ni efectos no documentados
+- No sobreescribir schema-engine.php si ya existe
+- Solo tocar inc/ y functions.php
 
 ---
 
@@ -145,19 +130,6 @@ Solicita indexación después del deploy:
 ```php
 <?php
 return [
-    'producto' => [
-        'nombre'           => '',
-        'descripcion'      => '',
-        'tipo'             => '', // DietarySupplement | Drug | Product
-        'marca'            => '',
-        'fabricante'       => '',
-        'categoria'        => '',
-        'ingrediente'      => '',
-        'via'              => '', // Oral | Tópica
-        'indicacion'       => '',
-        'advertencia'      => '',
-        'contraindicacion' => '',
-    ],
     'organizacion' => [
         'nombre' => '',
         'url'    => '',
@@ -176,3 +148,5 @@ return [
     ],
 ];
 ```
+
+Sube estos dos al repo, actualiza también el `schema-data.php` de Dr. Flu eliminando todo el bloque `'producto'` que ya no se usa, y volvemos a correr Rich Results Test.
