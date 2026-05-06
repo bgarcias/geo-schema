@@ -43,27 +43,32 @@ Extrae:
 
 ---
 
-### PASO 3 — Evaluar información disponible
+### PASO 3 — OBLIGATORIO: Mostrar reporte y esperar confirmación
 
-Si tienes suficiente para generar nombre + descripción + 5 FAQs → pasa al Paso 4.
-
-Si falta información, muestra este reporte y espera respuesta:
+**STOP. Antes de escribir cualquier archivo, muestra este reporte y espera respuesta.**
+No importa si tienes información suficiente o no — este paso es siempre obligatorio.
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📋 REPORTE PREVIO — geo-schema
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-✅ Encontré:
-[lista lo que sí encontraste]
+✅ Información extraída del theme:
+[lista todo lo que encontraste]
 
-⚠️ Me falta:
-[lista lo que falta]
+📝 FAQs que propongo incluir:
+1. Q: [pregunta] / A: [respuesta]
+2. Q: [pregunta] / A: [respuesta]
+3. Q: [pregunta] / A: [respuesta]
+4. Q: [pregunta] / A: [respuesta]
+5. Q: [pregunta] / A: [respuesta]
+[más si aplica]
 
-💡 Propuesta para completar sin datos adicionales:
-[propuesta basada en lo que leíste + conocimiento
- general del tipo de producto]
+⚠️ Información que no encontré / asumí:
+[lista lo que completaste con conocimiento general]
 
-¿Confirmas que proceda, o tienes datos adicionales?
+❓ ¿Procedo con esto o tienes correcciones?
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+**No escribas ningún archivo hasta recibir confirmación explícita.**
 
 ---
 
