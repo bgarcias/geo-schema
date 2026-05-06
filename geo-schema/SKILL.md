@@ -131,6 +131,8 @@ Solicita indexación después del deploy:
 
 ## Restricciones
 
+- No agregar campo `offers` — las páginas son landings, no e-commerce
+- No agregar `review` ni `aggregateRating` — no se inventan valoraciones
 - No modifica HTML ni CSS
 - No inventa ingredientes ni efectos no documentados
 - No sobreescribe schema-engine.php si ya existe
