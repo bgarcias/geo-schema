@@ -148,5 +148,3 @@ return [
     ],
 ];
 ```
-
-Sube estos dos al repo, actualiza también el `schema-data.php` de Dr. Flu eliminando todo el bloque `'producto'` que ya no se usa, y volvemos a correr Rich Results Test.
