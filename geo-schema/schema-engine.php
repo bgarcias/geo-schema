@@ -43,13 +43,6 @@ function geo_schema_inyectar($data)
         if (!empty($p['contraindicacion']))
             $s['contraindication'] = $p['contraindicacion'];
 
-        $s['offers'] = [
-            '@type' => 'Offer',
-            'availability' => 'https://schema.org/InStock',
-            'url' => $o['url'] ?? get_home_url(),
-            'priceCurrency' => 'PEN',
-        ];
-
         $schemas[] = $s;
     }
 
